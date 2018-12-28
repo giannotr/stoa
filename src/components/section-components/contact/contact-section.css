@@ -1,0 +1,16 @@
+.contact-section {
+  margin: 75px auto 0;
+}
+
+@-webkit-keyframes submit-loader {
+  50% { opacity: 1; }
+  100% { box-shadow: 0 0 0 20px rgba(74, 146, 168, 0); }
+}
+@-o-keyframes submit-loader {
+  50% { opacity: 1; }
+  100% { box-shadow: 0 0 0 20px rgba(74, 146, 168, 0); }
+}
+@keyframes submit-loader {
+  50% { opacity: 1; }
+  100% { box-shadow: 0 0 0 20px rgba(74, 146, 168, 0); }
+}

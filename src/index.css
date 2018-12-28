@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300|Quicksand');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1em;
+}
+
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #6c7377;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #6c7377; 
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a0a7; 
+}
+*/
+
+h1 {
+  font-family: 'Quicksand', sans-serif !important;
+  color: #444 !important;
+  text-transform: lowercase !important;
+}
+h2 {
+  font-family: 'Quicksand', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 3.2em !important;
+  color: #444 !important;
+  text-align: center !important;
+  text-transform: lowercase !important;
+  margin: 2.8rem !important;
+}
+h3 {
+  font-family: 'Quicksand', sans-serif !important;
+  font-size: 2.4em !important;
+  font-weight: 800 !important;
+  text-transform: lowercase !important;
+}
+h4 {
+  font-family: 'Quicksand', sans-serif !important;
+  text-transform: lowercase !important;
+}
+h5 {
+  font-family: 'Quicksand', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
+}
+h6 {
+  font-family: 'Quicksand', sans-serif !important;
+}

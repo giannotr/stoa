@@ -1,0 +1,118 @@
+.modal-dialog {
+  max-width: 75vw;
+  margin: 90px auto;
+}
+@media (min-width: 1350px) {
+  .modal-dialog { max-width: 50vw; }
+}
+@media (max-width: 500px) {
+  .modal-dialog { max-width: 100vw; }
+}
+
+.shopping-modal-body {
+  display: block;
+  text-align: center;
+}
+.shopping-modal-footer {
+  display: block;
+  text-align: center;
+}
+.shopping-modal-buttons {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+/*
+.shopping-modal-buttons button {
+  border: 0 transparent;
+  border-radius: 30px;
+  padding: 15px 30px;
+  margin: 15px;
+  cursor: pointer;
+  font-size: .9em;
+  font-weight: 600;
+  color: #eee;
+  outline: 0;
+  background-color: #8e9ea3;
+  transition: all .4s;
+}
+.shopping-modal-buttons button + button {
+  background-color: #4a92a8;
+  transition: all .4s;
+}
+.shopping-modal-buttons button:hover {
+  background-color: #8eb6c2;
+  transition: all .4s;
+}
+*/
+
+
+
+.shopping-progress {
+  display: block;
+  margin-top: 3rem;
+}
+.multi-steps > li.is-active:before, .multi-steps > li.is-active ~ li:before {
+  content: counter(stepNum);
+  font-family: inherit;
+  font-weight: 700;
+}
+.multi-steps > li.is-active:after, .multi-steps > li.is-active ~ li:after {
+  background-color: #ededed;
+}
+.multi-steps {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.multi-steps > li {
+  counter-increment: stepNum;
+  text-align: center;
+  display: table-cell;
+  position: relative;
+  color: #55b4d4;
+  z-index: 1;
+}
+.multi-steps > li:before {
+  content: '\f00c';
+  content: '\2713;';
+  content: '\10003';
+  content: '\10004';
+  content: '\2713';
+  display: block;
+  margin: 0 auto 4px;
+  background-color: #fff;
+  width: 36px;
+  height: 36px;
+  line-height: 32px;
+  text-align: center;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #55b4d4;
+  border-radius: 50%;
+}
+.multi-steps > li:after {
+  content: '';
+  height: 2px;
+  width: 100%;
+  background-color: #55b4d4;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: -1;
+}
+.multi-steps > li:last-child:after {
+  display: none;
+}
+.multi-steps > li.is-active:before {
+  background-color: #fff;
+  border-color: #55b4d4;
+}
+.multi-steps > li.is-active ~ li {
+  color: #808080;
+}
+.multi-steps > li.is-active ~ li:before {
+  background-color: #ededed;
+  border-color: #ededed;
+}
