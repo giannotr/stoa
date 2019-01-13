@@ -15,7 +15,7 @@ const ContactSection = () => {
   );
 }
 
-// TODO: import (and use) textblocks
+// TODO: abstract and integrate textblocks
 class ContactForm extends React.Component {
   constructor(props){
     super(props);

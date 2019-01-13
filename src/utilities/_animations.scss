@@ -1,0 +1,36 @@
+@import './variables';
+@import './mixins';
+
+/* Animations */
+/* #1: up and down */
+@include keyframes(updown) {
+  from, to { transform: translateY($amplitude-translate); }
+  50% { transform: translateY(-$amplitude-translate); }
+}
+
+/* #2: horizontal spin */
+@include keyframes(spin) {
+  from { transform: rotateY(0); }
+  to { transform: rotateY(180deg); }
+}
+
+/* #3: fast wiggle */
+@include keyframes(wiggle) {
+  from, to {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translateX(-$amplitude-translate);
+    transform: translateX(-$amplitude-translate);
+  }
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translateX($amplitude-translate);
+    transform: translateX($amplitude-translate);
+  }
+}
+
+/* #4: pulsate */
+@include keyframes(pulsate) {
+  to { box-shadow: 0 0 0 20px rgba(74, 146, 168, 0); }
+}

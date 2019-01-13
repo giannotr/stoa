@@ -1,0 +1,14 @@
+.address-input-wrapper {
+  transform-origin: top;
+  transition: all .4s;
+
+  &.collapsed {
+    height: 0;
+    transform: scaleY(0);
+  }
+
+  &.expanded {
+    height: auto;
+    transform: scaleY(1);
+  }
+}

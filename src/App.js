@@ -11,19 +11,23 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <MainInterface
-          //ref={(ref) => {window.mainInterface = ref}}
-        />
-        <main id="app-content" className="wrapper">
-          <HomeSection />
-          <ShopSection />
-          <AboutSection />
-          <ContactSection />
-          <FooterSection />
-        </main>
+        <MainInterface />
+        <AppContent />
       </React.Fragment>
     );
   }
+}
+
+const AppContent = () => {
+  return(
+    <main id="app-content" className="wrapper">
+      <HomeSection />
+      <ShopSection />
+      <AboutSection />
+      <ContactSection />
+      <FooterSection />
+    </main>
+  );
 }
 
 export default App;

@@ -1,6 +1,6 @@
 class Indicators {
   currency = 'EUR';
-  vat = 0.19;
+  vatRate = 0.19;
   vatIncluded = true;
   shipping = 2;
   shippingThreshhold = 3;
@@ -14,6 +14,9 @@ export function formatcash(value) {
     { style: 'currency', currency: indicators.currency },
   ).format(value);
 }
+
+/* obsolete?: Classnames */
+/* workaround: base components */
 
 class Classnames {
   buttonPrimary   = 'btn btn-primary';
@@ -33,10 +36,24 @@ class Textblocks {
     this.language = language;
   }
 
+  incl = 'inkl.';
+  plus = 'zzgl.';
+
+  cartEmpty = 'Der Einkaufswagen ist leer.'
+
+  vat = 'MwSt.';
+
+  fname = 'Vorname';
+  lname = 'Nachname';
+  address = 'Adresse';
+  zip = 'PLZ';
+  city = 'Ort';
+  country = 'Land';
+  plsSelect = 'Bitte auswählen';
+
   germany     = 'Deutschland';
   austria     = 'Österreich';
   switzerland = 'Schweiz';
-  cartempty   = 'Der Einkaufswagen ist leer.'
 }
 
 export const textblocks = new Textblocks(window.localStorage.language);

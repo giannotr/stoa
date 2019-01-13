@@ -1,0 +1,55 @@
+@import '../../../utilities/variables';
+
+.footer-section {
+  min-height: 200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #215465;
+  background-image: linear-gradient(-179deg, $color-bg-main 0%, #215465 10%, #0b1f33 100%);
+  color: $color-secondary;
+  transition: all .2s;
+
+  .logo-wrapper {
+    max-width: 165px;
+    margin: 10px auto;
+
+    img {
+      width: 100%;
+      filter: invert(1);
+    }
+  }
+
+  .links-wrapper {
+    margin: 35px;
+
+    a {
+      margin: 0 10px;
+      color: $color-secondary;
+      font-weight: bold;
+      transition: all .4s;
+
+      &:hover {
+        color: $color-light;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .copyright-wrapper {
+    border-top: 1px solid $color-light;
+    padding: 35px;
+  }
+
+  /*
+  &.active {
+    background-color: #8eb6c2;
+    color: #333;
+
+    .logo-wrapper {
+      img {
+        filter: invert(0);
+      }
+    }
+  }
+  */
+}

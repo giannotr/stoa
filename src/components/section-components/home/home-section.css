@@ -1,8 +1,11 @@
 .home-section {
-  justify-content: center;  
+  -webkit-box-pack: center !important;
+      -ms-flex-pack: center !important;
+          justify-content: center !important;
 }
+
 .home-section::after {
-  background-image: url('../../../assets/img/partitur.jpg');
+  background-image: url("../../../assets/img/partitur.jpg");
 }
 
 /*
@@ -48,37 +51,70 @@
   color: #777;
   margin: 0 !important;
 }
+
 .typewriter-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 10px;
 }
+
 .typewriter-title * {
   margin: 0 !important;
   font-size: 2.6em !important;
 }
+
 .typewriter-title h2 {
   color: #4a92a8 !important;
 }
+
 .typewriter-title h1 {
   font-weight: 200 !important;
 }
+
 .typewriter {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 0 5px;
   border-right: 2px #4a92a8 solid;
   /* font-family: monospace !important; */
   text-align: left;
   white-space: nowrap;
-  animation: cursor .6s infinite normal;
+  -webkit-animation: cursor .6s infinite normal;
+          animation: cursor .6s infinite normal;
 }
+
+@-webkit-keyframes cursor {
+  from {
+    border-right-color: #4a92a8;
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
 @keyframes cursor {
-  from { border-right-color: #4a92a8; }
-  to   { border-right-color: transparent; }
+  from {
+    border-right-color: #4a92a8;
+  }
+  to {
+    border-right-color: transparent;
+  }
 }
+
 @media (max-width: 700px) {
   .super-title * {
     font-size: 8vw !important;
@@ -101,21 +137,21 @@
   outline: 0 !important;
   cursor: pointer;
   -webkit-animation: updown 1s ease-out infinite;
-  -moz-animation: updown 1s ease-out infinite;
-  -ms-animation: updown 1s ease-out infinite;
   animation: updown 1s ease-out infinite;
 }
+
 .scroll-down svg {
   width: 40px;
   height: 40px;
   fill: #444;
 }
+
 .scroll-down:hover {
   -webkit-animation: none;
-  -moz-animation: none;
-  -ms-animation: none;
   animation: none;
 }
+
 .scroll-down:hover svg {
   fill: #4a92a8;
 }
+/*# sourceMappingURL=home-section.css.map */

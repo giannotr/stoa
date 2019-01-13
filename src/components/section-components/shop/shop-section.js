@@ -1,46 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import { classnames, formatcash } from '../../../backend/js/shop.config';
 import cartStorage from '../../../backend/js/shop.cartstorage';
 import { Quote } from '../../building-blocks/base-components';
+import catalogue from './shop-catalogue';
 import './shop-section.css';
-import '../../../App.css';
+//import '../../../App.css';
+
+const selected = {}
 
 class ShopSection extends React.Component {
   constructor(){
     super();
     this.state = {
-      catalogue: {
-        audio: [],
-        print: [],
-      },
-      selected: {},
+      catalogue,
+      selected,
     }
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    axios.get('data/catalogue.json', {
-      responseType: 'json'
-    }).then(response => {
-      this.setState({
-        catalogue: response.data,
-      });
-    });
-    /*
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        this.setState({ catalogue: JSON.parse(this.responseText) });
-      }
-    };
-    xhttp.open('GET', 'data/catalogue.json', true);
-    xhttp.send();
-    */
-  }
-  
-  handleClick(e) {
+  handleClick = (e) => {
     this.setState({
       selected: {
         id:       e.target.dataset.id,
@@ -57,20 +36,22 @@ class ShopSection extends React.Component {
   }
   
   render() {
+    const { catalogue, selected } = this.state;
+    const catalogueJoined = [...catalogue.audio, ...catalogue.print];
     return(
       <React.Fragment>
-        <section id='shop' className='container static shop-section'>
+        <section id="shop" className="container static shop-section">
           <Quote
-            phrase='Der Grund, warum wir zwei Ohren und nur einen Mund haben: Damit wir mehr zuhören und weniger plaudern.'
-            source='Zenon von Kition'
+            phrase="Der Grund, warum wir zwei Ohren und nur einen Mund haben: Damit wir mehr zuhören und weniger plaudern."
+            source="Zenon von Kition"
           />
           <h2>Shop</h2>
-          <div className='shop-shelf'>
-            {this.state.catalogue['audio'].map(item => 
+          <div className="shop-shelf">
+            {catalogueJoined.map(item =>
               <ShelfItem
                 key={item.id}
                 id={item.id}
-                name={item.artist+': '+item.title}
+                name={`${item.author}: ${item.title}`}
                 price={item.price}
                 discount={item.discount}
                 img={item.img}
@@ -83,7 +64,7 @@ class ShopSection extends React.Component {
           </div>
         </section>
         <DetailsDivision
-          selected={this.state.selected}
+          selected={selected}
           ref={(ref) => {window.detailsDivision = ref}}
         />
       </React.Fragment>
@@ -91,48 +72,37 @@ class ShopSection extends React.Component {
   }
 }
 
-function ShelfItem (props) {
-  let id         = props.id;
-  let name       = props.name;
-  let discount   = props.discount;
-  let price      = discount ? (1-discount)*props.price : props.price;
-  let oldprice   = discount ? props.price : null;
-  let img        = props.img;
-  let imgDetails = props.imgDetails;
+const ShelfItem = (props) => {
+  const { id, name, price, discount, img, imgDetails } = props;
+  const priceDisplay = discount ? (1-discount)*price : price;
+  const priceOld = discount ? price : null;
   return(
-    <div className='shelf-item'>
+    <div className="shelf-item">
       <div
-        className='background'
+        className="background"
         style={{backgroundImage: 'url('+img+')'}}>
       </div>
-      <ul className='shelf-item-caption'>
-        <li className='colored-strong'>{name}</li>
-        <li className='big-bold-white'>
-          {formatcash(price)}
+      <ul className="caption">
+        <li className="name">{name}</li>
+        <li className="price">
+          {formatcash(priceDisplay)}
           {discount &&
-            <span
-              style={{
-                fontSize: '.85em',
-                fontWeight: '350',
-                textDecoration: 'line-through',
-                marginLeft: '10px',
-              }}
-            >
-              {formatcash(oldprice)}
+            <span className="oldprice">
+              {formatcash(priceOld)}
             </span>
           }
         </li>
       </ul>
       {discount &&
-        <div className='discount'>
-          {'-' + discount * 100 + '%'}
+        <div className="discount">
+          {`-${discount * 100}%`}
         </div>
       }
       <button
         data-id={id}
         data-name={name}
-        data-price={price}
-        data-oldprice={oldprice}
+        data-price={priceDisplay}
+        data-oldprice={priceOld}
         data-discount={discount}
         data-img={imgDetails}
         data-details={props.children}
@@ -148,76 +118,50 @@ class DetailsDivision extends React.Component {
     this.state = {
       expanded: false,
     }
-    this.toggleHandler = this.toggleHandler.bind(this);
   }
   
-  toggleHandler() {
-    this.state.expanded ?
-      (document.body.style.overflow = 'auto'):
-      (document.body.style.overflow = 'hidden');
-    /*
-    if(this.state.expanded) {
-      document.body.style.overflow = 'auto';
-      window.mainInterface.handleNavToggleVisibility();
-    } else {
-      document.body.style.overflow = 'hidden';
-      window.addItem.resetHandler();
-    }
-    */
-    this.setState({ expanded: !this.state.expanded });
-    
+  toggleHandler = () => {
+    const { expanded } = this.state;
+    document.body.style.overflow = expanded ? 'auto' : 'hidden';
+    this.setState({ expanded: !expanded });
   }
 
-  closeHandler() {
+  /*
+  closeHandler = () => {
     this.setState({ expanded: false });
     document.body.style.overflow = 'auto';
   }
+  */
   
   render() {
-    let id       = this.props.selected.id;
-    let name     = this.props.selected.name;
-    let price    = this.props.selected.price;
-    let oldprice = this.props.selected.oldprice;
-    let details  = this.props.selected.details;
-    let img      = this.props.selected.img;
-    let imgSrc   = this.state.expanded ? img : '';// flush out images of the previous lifecycles
-    let wrapper  = 'details-division' + (this.state.expanded ? ' expanded' : ' collapsed');
-    let inner    = 'details-panel'    + (this.state.expanded ? ' expanded' : ' collapsed');
+    const { id, name, price, oldprice, details, img } = this.props.selected;
+    const { expanded } = this.state;
+    const imgSrc = expanded ? img : '';// to flush out images of the previous lifecycles
+    const className = `details-division ${expanded ? 'expanded' : 'collapsed'}`;
+    const classNameInner = `details-panel ${expanded ? 'expanded' : 'collapsed'}`;
     return(
       <DetailsDivisionPortal>
-        <div className={wrapper}>
-          <div className={inner}>
-            <div className='details-content-grid'>
-              <div className='details-side left wrap'>
+        <div className={className}>
+          <div className={classNameInner}>
+            <div className="details-grid">
+              <div className="details-side left wrap">
                 <img src={imgSrc} alt={name} />
               </div>
-              <div className='details-side right top'>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    borderBottom: '1.4px #d0dfe2 solid',
-                  }}
-                >
-                  <h5 className='details-title'>
-                    <span className='colored-strong'>{name}</span><br />
+              <div className="details-side right top">
+                <div className="header-wrapper">
+                  <h5 className="header">
+                    <span className="name">{name}</span>
+                    <br />
                     <span>{formatcash(price)}</span>
                     &nbsp;
-                    <span
-                      style={{
-                        display: oldprice === undefined ? 'none' : 'inline-block',
-                        textDecoration: 'line-through',
-                        fontSize: '85%',
-                        fontWeight: '300',
-                      }}
-                    >
-                      {formatcash(oldprice)}
-                    </span>
+                    {oldprice &&
+                      <span className="oldprice">
+                        {formatcash(oldprice)}
+                      </span>
+                    }
                   </h5>
                   <button
-                    className='details-close'
-                    style={{outline: '0'}}
+                    className="details-close"
                     aria-label='Close'
                     onClick={this.toggleHandler}
                   >
@@ -268,7 +212,6 @@ class DetailsDivision extends React.Component {
                     qty={1}
                     price={Number(price)}
                     name={String(name)}
-                    ref={(ref) => {window.addItem = ref}}
                   />
                 </div>
               </div>
@@ -287,67 +230,23 @@ function DetailsDivisionPortal({children}) {
   );
 };
 
-class AddItem extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      clicked: false,
-    }
-    this.clickHandler = this.clickHandler.bind(this);
-  }
-  
-  clickHandler() {
-    this.setState({
-      clicked: true,
-    });
-    cartStorage.add(
-      this.props.id,
-      this.props.qty,
-      this.props.price,
-      this.props.name
-    );
+const AddItem = (props) => {
+  const { id, qty, price, name } = props;
+  const handleClick = () => {
+    cartStorage.add(id, qty, price, name);
     window.detailsDivision.toggleHandler();
   }
-  
-  resetHandler() {
-    this.setState({
-      clicked: false,
-    });
-  }
-
-  render() {
-    let btn = classnames.buttonPrimary
-            + (!this.state.clicked ? ' btn-collapse' : ' btn-collapse-clicked');
-    return(
-      <div style={{width: 'fit-content', margin: 'auto'}}>
-        <button
-          onClick={this.clickHandler}
-          className={btn}
-          style={{outline: '0'}}
-        >
-          In den Einkaufswagen
-        </button>
-        {/*
-        <AddItemResponse>
-          <div
-            className={ this.state.clicked ? 'pulsate-fast' : '' }
-            style={{
-              position: 'fixed',
-              top: '12.5px',
-              right: '16.5px',
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: 'transparent',
-              pointerEvents: 'none',
-              zIndex: '1100',
-            }}>
-          </div>
-        </AddItemResponse>
-        */}
-      </div>
-    );
-  }
+  return(
+    <div style={{width: 'fit-content', margin: 'auto'}}>
+      <button
+        onClick={handleClick}
+        className={classnames.buttonPrimary}
+        style={{outline: '0'}}
+      >
+        In den Einkaufswagen
+      </button>
+    </div>
+  );
 }
 
 /*

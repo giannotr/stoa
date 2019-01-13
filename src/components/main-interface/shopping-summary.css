@@ -119,3 +119,9 @@
 .payment-tile img {
   height: 70px;
 }
+.payment-tile.selected {
+  background: #67aabc;
+  color: white;
+  font-size: 90%;
+  font-weight: bold;
+}

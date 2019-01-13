@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,sBAAsB,CAAC;EACrB,gBAAgB,EAAE,GAAG;EACrB,UAAU,EAAE,OAAO;CAWpB;;AAbD,AAIE,sBAJoB,AAInB,UAAU,CAAC;EACV,MAAM,EAAE,CAAC;EACT,SAAS,EAAE,SAAS;CACrB;;AAPH,AASE,sBAToB,AASnB,SAAS,CAAC;EACT,MAAM,EAAE,IAAI;EACZ,SAAS,EAAE,SAAS;CACrB",
+    "sources": [
+        "user-input.scss"
+    ],
+    "names": [],
+    "file": "user-input.css"
+}

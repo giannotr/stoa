@@ -68,6 +68,20 @@ export const Button = (props) => {
   );
 }
 
+export const Toggle = (props) => {
+  const { caption, onChange, flag } = props;
+  const className = `toggle-wrapper ${flag ? 'toggled' : ''}`
+  return(
+    <div className={className}>
+      <div className="toggle">
+        <input type="checkbox" onChange={onChange}/>
+        <label></label>
+      </div>
+      <div className="caption">{caption}</div>
+    </div>
+  );
+}
+
 export const Form = (props) => {
   const { children } = props;
   return(

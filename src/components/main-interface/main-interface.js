@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import ShoppingModal from './shopping-modal';
+import navItems from './navItems';
 import logo from '../../logo.svg';
 import navIconset from './nav-iconset.svg';
 import './main-interface.css';
@@ -9,14 +10,7 @@ class MainInterface extends React.Component {
   constructor() {
     super();
     this.state = {
-      navItems: [
-        {
-          'caption': '',
-          'iconsrc': '',
-          'svgpath': '',
-          'destination': '#',
-        },
-      ],
+      navItems,
       pageTop: true,
       navActive: false,
       modalActive: false,
@@ -67,23 +61,17 @@ class MainInterface extends React.Component {
   checkScroll = () => {
     const scroll = document.getElementById('app-content').scrollTop;
     const offset = 100;
-    const pageTop = scroll <= offset ? true : false;
+    const pageTop = Number(scroll) <= offset ? true : false;
     this.setState({
       pageTop,
     });
   }
 
+  //TODO: check onScroll on "app-content-component"
   componentDidMount() {
     document.getElementById('app-content').addEventListener(
       'scroll', this.checkScroll, false
     );
-    axios.get('data/nav.json', {
-      responseType: 'json',
-    }).then(response => {
-      this.setState({
-        navItems: response.data,
-      });
-    });
   }
 
   componentWillUnmount() {
@@ -107,18 +95,18 @@ class MainInterface extends React.Component {
         </Logo>
         <Controls>
           <NavToggle
-            navActive={navActive}
-            toggleHandler={this.handleNavToggle}
+            isActive={navActive}
+            handleClick={this.handleNavToggle}
           />
           <ModalToggle
-            modalActive={modalActive}
-            toggleHandler={this.handleModalToggle}
+            isActive={modalActive}
+            handleClick={this.handleModalToggle}
           />
         </Controls>
         <Nav
           items={navItems}
           icons={navIconset}
-          active={navActive}
+          isActive={navActive}
           closeHandler={this.handleNavClose}
         />
         <ShoppingModal
@@ -132,28 +120,25 @@ class MainInterface extends React.Component {
   }
 }
 
-function Logo(props) {
+const Logo = (props) => {
   const { pageTop, children } = props;
-  const className = `logo ${pageTop ? '' : 'scrolled'}`;
+  const divClassName = `logo ${pageTop ? '' : 'scrolled'}`;
   return(
-    <div className={className}>{children}</div>
+    <div className={divClassName}>{children}</div>
   );
 }
 
-function Controls (props) {
+const Controls = (props) => {
   return(
-    <div className='controls'>{props.children}</div>
+    <div className="controls">{props.children}</div>
   );
 }
 
-function NavToggle(props) {
-  const { navActive, toggleHandler } = props;
-  let className = `burger-menu + ${navActive ? 'toggled' : ''}`;
+const NavToggle = (props) => {
+  const { isActive, handleClick } = props;
+  const buttonClassName = `burger-menu ${isActive ? 'active' : ''}`;
   return(
-    <button
-      className={className}
-      onClick={toggleHandler}
-    ></button>
+    <button className={buttonClassName} onClick={handleClick}></button>
   );
 }
 /*
@@ -171,14 +156,20 @@ function NavToggle(props) {
   );
 }
 */
-function ModalToggle(props) {
-  let toggleActive = props.modalActive ? 'toggle-active' : '';
-  let svgPath = !props.modalActive ?
-    'M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z' :
-    'M16 6v-2c0-2.209-1.791-4-4-4s-4 1.791-4 4v2h-5v18h18v-18h-5zm-7-2c0-1.654 1.346-3 3-3s3 1.346 3 3v2h-6v-2zm10 18h-14v-14h3v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h3v14z';
+const ModalToggle = (props) => {
+  const { isActive, handleClick } = props;
+  const buttonClassName = `modal-toggle ${isActive ? 'active' : ''}`;
+  const svgPath = isActive ?
+    `M16 6v-2c0-2.209-1.791-4-4-4s-4 1.791-4 4v2h-5v18h18v-18h-5zm-7-2c0-1.654
+    1.346-3 3-3s3 1.346 3 3v2h-6v-2zm10 18h-14v-14h3v1.5c0
+    .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h3v14z`:
+    `M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564
+    2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0
+    .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9
+    7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z`;
   return(
-    <button className='toggle' onClick={props.toggleHandler}>
-        <svg className={toggleActive} viewBox='0 0 24 24'>
+    <button className={buttonClassName} onClick={handleClick}>
+        <svg viewBox='0 0 24 24'>
           <path d={svgPath} />
         </svg>
     </button>
@@ -216,13 +207,13 @@ const CheckoutToggle = props => {
 }
 */
 
-function Nav(props) {
-  const { active, closeHandler, items, icons } = props;
-  const className = `nav ${active ? 'nav-active': ''}`;
+const Nav = (props) => {
+  const { isActive, closeHandler, items, icons } = props;
+  const className = `nav ${isActive ? 'nav-active': ''}`;
   return(
     <div className={className}>
-      <div className='nav-items-container'>
-        <div className='nav-items'>
+      <div className="nav-items-container">
+        <div className="nav-items">
           {items.map(item =>
             <NavItem
               key={item.caption}
@@ -234,28 +225,30 @@ function Nav(props) {
             />
           )}
         </div>
-        <NavCollapse closeHandler={closeHandler} />
+        <NavCollapse handleClick={closeHandler} />
       </div>
     </div>
   );
 }
-function NavItem(props) {
+
+const NavItem = (props) => {
   const { destination, closeHandler, caption, icons, iconcoordinates } = props;
   const src = `${icons}#svgView(viewBox(${iconcoordinates}))`;
   return(
     <a href={destination} onClick={closeHandler}>
       <div>
         <span>
-          <img className="nav-icon" src={src} />
+          <img className="nav-icon" src={src} alt={`navigate to ${destination}`}/>
         </span>
         <span>{caption}</span>
       </div>
     </a>
   );
 }
-function NavCollapse(props) {
+
+const NavCollapse = (props) => {
   return(
-    <button className='nav-collapse' onClick={props.closeHandler}>
+    <button className="nav-collapse" onClick={props.handleClick}>
       <svg viewBox='0 0 24 24' fillRule='evenodd' clipRule='evenodd'>
         <path
           d='M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479

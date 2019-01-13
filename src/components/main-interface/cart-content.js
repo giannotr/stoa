@@ -11,37 +11,32 @@ class CartContent extends React.Component {
     this.state = {
       articles: [],
     }
-    this.deleteArticle = this.deleteArticle.bind(this);
-    this.setQuantity = this.setQuantity.bind(this);
-    this.reduceQuantity = this.reduceQuantity.bind(this);
-    this.incrementQuantity = this.incrementQuantity.bind(this);
-    this.syncCartWithStorage = this.syncCartWithStorage.bind(this);
   }
 
-  syncCartWithStorage(){
+  syncCartWithStorage = () => {
     this.setState({
       articles: JSON.parse(window.localStorage.cart_storage),
     });
   }
   
-  deleteArticle(e, id){
+  deleteArticle = (e, id) => {
     cartStorage.delete(id);
     this.syncCartWithStorage();
   }
   
-  setQuantity(e, id) {
+  setQuantity = (e, id) => {
     cartStorage.qty(id, Number(e.target.value));
     this.syncCartWithStorage();
   }
   
-  reduceQuantity(e, id){
+  reduceQuantity = (e, id) => {
     if(cartStorage.testqty(id, q => {return q > 1})) {
       cartStorage.add(id, -1);
       this.syncCartWithStorage();
     }
   }
   
-  incrementQuantity(e, id){
+  incrementQuantity = (e, id) => {
     cartStorage.add(id, 1);
     this.syncCartWithStorage();
   }
@@ -59,7 +54,7 @@ class CartContent extends React.Component {
             fontStyle: 'italic',
           }}
         >
-          {textblocks.cartempty}
+          {textblocks.cartEmpty}
         </div>
       ) : (
         <div className='cart-content'>
@@ -79,7 +74,7 @@ class CartContent extends React.Component {
             )}
           </div>
           <div className='cart-total'>
-            {formatcash(cartStorage.value())}
+            {formatcash(cartStorage.netValue())}
           </div>
         </div>
       )

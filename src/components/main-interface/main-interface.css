@@ -1,111 +1,435 @@
-@import '../../App.css';
+/* Animations */
+/* #1: up and down */
+@-webkit-keyframes updown {
+  from, to {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+}
+
+@keyframes updown {
+  from, to {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+  }
+}
+
+/* #2: horizontal spin */
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+/* #3: fast wiggle */
+@-webkit-keyframes wiggle {
+  from, to {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+}
+
+@keyframes wiggle {
+  from, to {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translateX(-5px);
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+}
+
+/* #4: pulsate */
+@-webkit-keyframes pulsate {
+  to {
+    -webkit-box-shadow: 0 0 0 20px rgba(74, 146, 168, 0);
+            box-shadow: 0 0 0 20px rgba(74, 146, 168, 0);
+  }
+}
+
+@keyframes pulsate {
+  to {
+    -webkit-box-shadow: 0 0 0 20px rgba(74, 146, 168, 0);
+            box-shadow: 0 0 0 20px rgba(74, 146, 168, 0);
+  }
+}
 
 .main-interface {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100vw;
   height: 60px;
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   z-index: 100;
   background-color: transparent;
+  -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
 }
+
 .main-interface.scrolled {
   background-color: #fff;
+  -webkit-transition: all .2s ease-in;
   transition: all .2s ease-in;
 }
 
 .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 20px;
+  -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
+  /*
+  &:hover svg {
+    fill: #8eb6c2;
+    transition: all .6s ease;
+  }
+  */
 }
+
 .logo.scrolled {
   padding: 0 20px;
+  -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
 }
+
 .logo img {
   height: 55px;
+  -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
 }
+
 .logo.scrolled img {
   height: 45px;
+  -webkit-transition: all .2s ease-out;
   transition: all .2s ease-out;
 }
+
 .logo a {
   border-bottom: 3px solid transparent;
-  transform: translateY(3px);
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
+  -webkit-transition: all .4s ease;
   transition: all .4s ease;
 }
-/*
-.logo:hover svg {
-  fill: #8eb6c2;
-  transition: all .6s ease;
-}
-*/
 
-.controls{
+.controls {
   position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   height: 100%;
   margin: 0 10px;
   padding: 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
-.toggle {
+
+.modal-toggle {
   padding: 0 10px;
   background-color: transparent;
   border: 0 transparent;
   outline: 0 !important;
   fill: #444;
+  -webkit-transition: fill .4s ease-in;
   transition: fill .4s ease-in;
+  /* spin from _animations.scss */
 }
-.toggle svg {
+
+.modal-toggle svg {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
-.toggle svg:hover {
+
+.modal-toggle svg:hover {
   fill: #8eb6c2;
+  -webkit-transition: fill .4s ease-in;
   transition: fill .4s ease-in;
 }
-.toggle-active {
+
+.modal-toggle.active svg {
   fill: #4a92a8;
+  -webkit-transition: fill .4s ease-in;
   transition: fill .4s ease-in;
-  animation: spin .2s linear;
-}/* spin from App.css */
+  -webkit-animation: spin .2s linear;
+          animation: spin .2s linear;
+}
+
+.burger-menu {
+  position: relative;
+  top: 5px;
+  height: 30px;
+  width: 30px;
+  margin: 0 10px;
+  outline: 0 !important;
+  border: 0 transparent;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
+          box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
+  /*
+  &:hover {
+
+  }
+  */
+}
+
+.burger-menu::before, .burger-menu::after {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  content: '';
+  height: 25px;
+  width: 4px;
+  border-radius: 13px;
+  background-color: #333;
+}
+
+.burger-menu::before {
+  -webkit-box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+          box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-animation: toBurgerBot .8s ease forwards;
+  animation: toBurgerBot .8s ease forwards;
+}
+
+.burger-menu::after {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-animation: toBurgerTop .8s ease forwards;
+  animation: toBurgerTop .8s ease forwards;
+}
+
+.burger-menu.active::before {
+  -webkit-animation: toCrossBot .8s ease forwards;
+  animation: toCrossBot .8s ease forwards;
+}
+
+.burger-menu.active::after {
+  -webkit-animation: toCrossTop .8s ease forwards;
+  animation: toCrossTop .8s ease forwards;
+}
+
+@-webkit-keyframes toCrossBot {
+  from {
+    -webkit-box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+            box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+    background-color: #333;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  to {
+    -webkit-box-shadow: 0 0 0 0 transparent;
+            box-shadow: 0 0 0 0 transparent;
+    background-color: #4a92a8;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}
+
+@keyframes toCrossBot {
+  from {
+    -webkit-box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+            box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+    background-color: #333;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  to {
+    -webkit-box-shadow: 0 0 0 0 transparent;
+            box-shadow: 0 0 0 0 transparent;
+    background-color: #4a92a8;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+}
+
+@-webkit-keyframes toCrossTop {
+  from {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+    background-color: #333;
+  }
+  to {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background-color: #4a92a8;
+  }
+}
+
+@keyframes toCrossTop {
+  from {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+    background-color: #333;
+  }
+  to {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background-color: #4a92a8;
+  }
+}
+
+@-webkit-keyframes toBurgerBot {
+  from {
+    -webkit-box-shadow: 0 0 0 0 transparent;
+            box-shadow: 0 0 0 0 transparent;
+    background-color: #4a92a8;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  to {
+    -webkit-box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+            box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+    background-color: #333;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+}
+
+@keyframes toBurgerBot {
+  from {
+    -webkit-box-shadow: 0 0 0 0 transparent;
+            box-shadow: 0 0 0 0 transparent;
+    background-color: #4a92a8;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  to {
+    -webkit-box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+            box-shadow: -8px 4px 0 0 #333, 8px  4px 0 0 #333;
+    background-color: #333;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+}
+
+@-webkit-keyframes toBurgerTop {
+  from {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background-color: #4a92a8;
+  }
+  to {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+    background-color: #333;
+  }
+}
+
+@keyframes toBurgerTop {
+  from {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background-color: #4a92a8;
+  }
+  to {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+    background-color: #333;
+  }
+}
 
 .nav {
   position: fixed;
-  top: 0;/* 60px */
+  top: 0;
+  /* 60px */
   left: 0;
   width: 100vw;
   height: 0;
   background-color: #fff;
   z-index: -1;
+  -webkit-transition: all .5s ease-in;
   transition: all .5s ease-in;
 }
+
 .nav-active {
-  height: 100%;/* calc(100% - 60px) */
+  height: 100%;
+  /* calc(100% - 60px) */
+  -webkit-transition: all .5s ease-in;
   transition: all .5s ease-in;
 }
+
 .nav-items-container {
   width: 100%;
   height: 75%;
   display: none;
   position: relative;
 }
+
 .nav-active .nav-items-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
+
 .nav-items > a {
   display: block;
   padding: 12px;
@@ -117,27 +441,44 @@
   cursor: pointer;
   border: 1.75px transparent solid;
   border-radius: 50px;
-  box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
+  -webkit-box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
+          box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
 }
+
 .nav-items > a:hover {
   border: 1.75px #4a92a8 solid;
+  -webkit-transition: all .35s linear;
   transition: all .35s linear;
-  -webkit-animation: pulsate .5s cubic-bezier(0.66, 0, 0, 1) .1s 1;
-  -moz-animation: pulsate .5s cubic-bezier(0.66, 0, 0, 1) .1s 1;
-  -ms-animation: pulsate .5s cubic-bezier(0.66, 0, 0, 1) .1s 1;
-  animation: pulsate .5s cubic-bezier(0.66, 0, 0, 1) .1s 1;
-}/* pulsate from App.css */
-.nav-items > a > div {
-  display: flex;
-  align-items: space-between;
-  justify-content: flex-start;
+  -webkit-animation: pulsate 0.5s cubic-bezier(0.66, 0, 0, 1) 0.1s 1;
+  animation: pulsate 0.5s cubic-bezier(0.66, 0, 0, 1) 0.1s 1;
 }
-.nav-items > a > div > span {
+
+/* pulsate from App.css */
+.nav-items > a > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.nav-items > a > div > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 0 10px;
 }
+
 .nav-items .nav-icon {
   width: 30px;
   height: 30px;
@@ -152,118 +493,24 @@
   border: none;
   fill: #555;
   -webkit-animation: updown 1s ease-out infinite;
-  -moz-animation: updown 1s ease-out infinite;
-  -ms-animation: updown 1s ease-out infinite;
   animation: updown 1s ease-out infinite;
-}/* updwon from App.css */
+}
+
+/* updwon from App.css */
 .nav-collapse:hover {
   fill: #4a92a8;
   -webkit-animation: none;
-  -moz-animation: none;
-  -ms-animation: none;
   animation: none;
 }
+
 .nav-collapse svg {
   width: 40px;
   height: 40px;
 }
+
 .nav-collapse svg path {
   display: block;
   margin: auto;
-}
-
-.burger-menu {
-  position: relative;
-  top: 5px;
-  height: 30px;
-  width: 30px;
-  margin: 0 10px;
-  outline: 0 !important;
-  border: 0 transparent;
-  border-radius: 0;
-  background: none;
-  cursor: pointer;
-  box-shadow: 0 0 0 0 rgba(74, 146, 168, 0.5);
-}
-/*
-.burger-menu:hover {
-
-}
-*/
-.burger-menu::before, .burger-menu::after {
-  position: absolute;
-  top: 0;
-  left: 12px;
-  content: '';
-  height: 25px;
-  width: 4px;
-  border-radius: 13px;
-  background-color: #333;
-}
-.burger-menu::before {
-  box-shadow: 
-    -8px 4px 0 0 #333,
-    8px  4px 0 0 #333;
-  transform: rotate(90deg);
-  -webkit-animation: toBurgerBot .8s ease forwards;
-  -moz-animation: toBurgerBot .8s ease forwards;
-  -ms-animation: toBurgerBot .8s ease forwards;
-  animation: toBurgerBot .8s ease forwards;
-}
-.burger-menu::after {
-  transform: rotate(-90deg);
-  -webkit-animation: toBurgerTop .8s ease forwards;
-  -moz-animation: toBurgerTop .8s ease forwards;
-  -ms-animation: toBurgerTop .8s ease forwards;
-  animation: toBurgerTop .8s ease forwards;
-}
-.burger-menu.toggled::before {
-  -webkit-animation: toCrossBot .8s ease forwards;
-  -moz-animation: toCrossBot .8s ease forwards;
-  -ms-animation: toCrossBot .8s ease forwards;
-  animation: toCrossBot .8s ease forwards;
-}
-.burger-menu.toggled::after {
-  -webkit-animation: toCrossTop .8s ease forwards;
-  -moz-animation: toCrossTop .8s ease forwards;
-  -ms-animation: toCrossTop .8s ease forwards;
-  animation: toCrossTop .8s ease forwards;
-}
-@keyframes toCrossBot {
-  from {
-    box-shadow: 
-      -8px 4px 0 0 #333,
-      8px  4px 0 0 #333;
-    background-color: #333;
-    transform: rotate(90deg);
-  }
-  to {
-    box-shadow: 0 0 0 0 transparent;
-    background-color: #4a92a8;
-    transform: rotate(45deg);
-  }
-}
-@keyframes toCrossTop {
-  from { transform: rotate(-90deg); background-color: #333; }
-  to   { transform: rotate(-45deg); background-color: #4a92a8; }
-}
-@keyframes toBurgerBot {
-  from {
-    box-shadow: 0 0 0 0 transparent;
-    background-color: #4a92a8;
-    transform: rotate(45deg);
-  }
-  to {
-    box-shadow: 
-      -8px 4px 0 0 #333,
-      8px  4px 0 0 #333;
-    background-color: #333;
-    transform: rotate(90deg);
-  }
-}
-@keyframes toBurgerTop {
-  from { transform: rotate(-45deg); background-color: #4a92a8; }
-  to   { transform: rotate(-90deg); background-color: #333; }
 }
 
 /*
@@ -373,3 +620,4 @@
   transition: all .6s ease;
 }
 */
+/*# sourceMappingURL=main-interface.css.map */

@@ -1,7 +1,7 @@
 import { indicators } from './shop.config';
 import validate from './shop.validate';
 
-function __commercialRound(num) {
+const __commercialRound = (num) => {
   return Number(num).toFixed(2);
 }
 
@@ -12,7 +12,7 @@ class CartStorage {
   
   __set(unit, content) {
     if(validate.isString(unit) && validate.isString(content)) {
-      localStorage.setItem(unit, content);
+      window.localStorage.setItem(unit, content);
     } else {
       throw new Error(
         'The unit namespace and the content have to be strings'
@@ -20,7 +20,6 @@ class CartStorage {
     }
   }
 
-  // console.log(localStorage);
   __get(unit) {
     if(validate.isString(unit)) {
       return window.localStorage[unit];
@@ -31,12 +30,16 @@ class CartStorage {
     }
   }
 
+  /*
   ini() {
-    this.__set('cart_storage', '[]');
+    if(!this.__get(this.__namespace)) {
+      this.__set(this.__namespace, '[]');
+    }
   }
+  */
 
   check(id) {
-    let cart = JSON.parse(this.__get('cart_storage'));
+    const cart = JSON.parse(this.__get('cart_storage'));
     let indexReturn = null;
     let flagReturn = cart.map((item, index) => {
       if(item['id'] === id) { indexReturn = index; return true; }
@@ -111,15 +114,21 @@ class CartStorage {
     ).reduce((p, c) => p + c, 0);
   }
 
-  value() {
+  netValue() {
     return JSON.parse(this.__get('cart_storage')).map(
       item => item.qty * item.price
     ).reduce((p, c) => p + c, 0);
   }
 
-  valueVAT() {
+  grossSum() {
     return __commercialRound(
-      this.value() * (1 + indicators.vat)
+      this.netValue() * (1 + indicators.vatRate)
+    );
+  }
+
+  vatAmount() {
+    return __commercialRound(
+      this.netValue() * indicators.vatRate
     );
   }
 
@@ -129,7 +138,7 @@ class CartStorage {
 }
 
 const cartStorage = new CartStorage();
-cartStorage.ini();
+//cartStorage.ini();
 
 export default cartStorage;
 
